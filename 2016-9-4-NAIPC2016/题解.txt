@@ -1,3 +1,11 @@
+Problem C-Greetings!
+¸ºÔð£ºÍõÅô
+Çé¿ö£º1AC
+ÌâÒâ£º
+	¸ø¶¨NÖÖ²»Í¬´óÐ¡Ã÷ÐÅÆ¬£¬¿ÉÒÔ¶¨ÖÆK¸öÐÅ·â£¨´óÐ¡ÈÎÒâ£©£¬½«ÕâNÖÖÃ÷ÐÅÆ¬·ÅÈëK¸öÐÅ·âÖÐ£¬Ã÷ÐÅÆ¬²»¿ÉÒÔÐý×ª£¬Ê¹µÃÊ£Óà¿Õ¼ä×îÐ¡
+Ë¼Â·£º
+	ÓÉÓÚNºÜÐ¡Ö»ÓÐ15£¬ÓÃ¶þ½øÖÆÊýÃ¶¾ÙÈ¡ÆäÖÐÈô¸É¸öÃ÷ÐÅÆ¬ÓÃÍ¬Ò»¸öÐÅ·â×°ÐèÒªÀË·ÑµÄ¿Õ¼ä£¬¼Ç×÷cost[i]£¬È»ºóDP´¦Àíf[i][j]±íÊ¾ÓÃi¸öÐÅ·â×°ÏÂ×´Ì¬ÎªjµÄÃ÷ÐÅÆ¬ºó×îÉÙµÄÊ£Óà¿Õ¼ä£¬Ö»ÒªÃ¶¾ÙjµÄËùÓÐ×Ó¼¯k f[i][j] = min(f[i-1][j^k]+cost[k])¡£×îºóÊä³öf[k][(1<<n)-1]
+
 Problem D£­Programming Team
 ¸ºÔð£º¹ùÓê ÍõÅô
 Çé¿ö£º4AC
@@ -13,6 +21,31 @@ Problem D£­Programming Team
 	×öµ½µãxÊ±£¬Ã¶¾ÙÆä¶ù×Ó½Úµã£¬Ã¶¾ÙÁ½ÕßµÄÈ¡µÄ½áµãÊýÁ¿½øÐÐ×ªÒÆ
 	²ÉÓÃÖð²½¸üÐÂµãxµÄsizeµÄ·½·¨£¬¿ÉÒÔ±£Ö¤×Ü¸´ÔÓ¶ÈÎªO(N^2)
 	
+Problem F-Mountain Scenes
+¸ºÔð£ºÂÞÆëÒ¢ ÍõÅô
+Çé¿ö£º2AC
+ÌâÒâ£º
+	¸ø³öÒ»¸öW*HµÄÆ½Ãæ£¬ÔÚÃ¿Ò»ÁÐ×îµ×²ã·ÅÉÏÈô¸É¸ö³ñ¶Ð£¬Ê¹µÃ×îÖÕµÄ×î¸ß´¦²»ÐÎ³ÉÒ»ÌõÖ±Ïß
+Ë¼Â·£º
+	¿¼ÂÇÃ¿Ò»ÁÐ·ÅÉÏµÄ³ñ¶Ð³¤¶ÈÎªXi£¬ÔòÓÐ£º
+		X1+X2+...+Xh <= N
+		0<=Xi<=W
+	ÇÒ£ºXi²»ÄÜÈ«²¿ÏàÍ¬
+	¿¼ÂÇf[i][j]±íÊ¾X1+X2+...+Xi=jµÄ·½°¸Êý£¨²»ÅÅ³ýXiÍêÈ«ÏàÍ¬µÄÇé¿ö£©
+	f[i][j] = f[i-1][j]+f[i-1][j-2]+ÿ+f[i-1][j-w]
+	×îºó½á¹ûÎª f[h][0]+f[h][1]+ÿ+f[h][n]-min(n/h,w)-1
+
+Problem G-Symmetry
+¸ºÔð£ºÂÞÆëÒ¢
+Çé¿ö£ºÈüºóÍ¨¹ý
+ÌâÒâ£º
+	Æ½ÃæÉÏ¸ø³öÈô¸É¸öµã£¬Ìí¼Ó×îÉÙµÄµãÊ¹µÃÕû¸öÍ¼ÐÎ³ÊÖÐÐÄ¶Ô³Æ»òÖá¶Ô³Æ
+Ë¼Â·£º
+	ÈôÖÐÐÄ¶Ô³Æ£¬Ö»Òª¿¼ÂÇÁ½Á½µã¶ÔÁ¬ÏßÖÐµãÖÐ³öÏÖ×î¶àµÄÄÇ¸ö £¨Ö±½ÓÇóÁ½Á½ÖÐµãÕÒ³ö³öÏÖ´ÎÊý×î¶àÎªm£¬´ð°¸Îªn-m£©
+	ÈôÖá¶Ô³Æ£¬ÄÇÃ´»òÊÇ¿¼ÂÇÒ»ÌõÖ±Ïß¹ýÆäÖÐ×î¶àµÄµã  (Ê±ÏÞºÜ¿í£¬Ö±½Ó±©Á¦¾ÍºÃ£©
+		     »òÊÇ¿¼ÂÇÁ½Á½µã¶ÔµÄÖÐ´¹ÏßÖØºÏ×î¶àÇÒÄÜ¹ý×î¶àµÄµã  £¨¿¼ÂÇÁ½Á½µã¶ÔµÄÖÐ´¹ÏßÖØºÏÁËmÌõ£¬ÓÖÍ¨¹ýÁËÍ¼ÖÐt¸öµã£¬´ð°¸Îªn-2m-t£©
+	Ö»ÄÜËµÊ±ÏÞÌ«ÃÔ£¬¿¼³¡ÉÏÃ»×¢Òâµ½£¬Èüºó5min¹ýÁËÕâµÀÌâÿÿ233
+
 Problem H-Jewel Thief
 ¸ºÔð£º¹ùÓê
 Çé¿ö£ºWA
