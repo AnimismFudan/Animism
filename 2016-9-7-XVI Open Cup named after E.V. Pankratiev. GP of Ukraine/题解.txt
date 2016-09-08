@@ -17,6 +17,22 @@ Problem A£­Associated Vertices
 	ÐèÒª´æÏÂËùÓÐµã¶ÔÊÇ·ñ¹ØÁª
 	¸´ÔÓ¶ÈO(N*M+N^2)
 
+Problem B-Bishops
+¸ºÔð£ºÂÞÆëÒ¢
+Çé¿ö£º2AC
+ÌâÒâ£º
+	ÔÚÒ»¸öN*NµÄÆåÅÌÉÏÓÐM¸öÏó£¬ÏóµÄ¹¥»÷·¶Î§ÎªÖ÷´Î¶Ô½ÇÏß£¬Çó³öÆåÅÌÉÏÓÐ¶àÉÙÎ»ÖÃ²»»á±»ÈÎÒâÒ»¸öÏó¹¥»÷µ½
+Ë¼Â·£º
+	¶ÔÓÚÒ»¸öÎ»ÖÃÔÚ(a,b)µÄÏó£¬Ëü¿ÉÒÔ¹¥»÷µ½µÄÎ»ÖÃ(x,y)Âú×ãx+y=a+b»òx-y=a-b¡£¿¼ÂÇÃ¿Ò»ÌõÖ÷¶Ô½ÇÏßx+y=2..n+n£¬ÈôÕâ¸ö¶Ô½ÇÏßÉÏÓÐÏó£¬ÔòÕâÌõÏßÉÏËùÓÐµÄµã¶¼¿ÉÒÔ±»¹¥»÷µ½£»Èç¹ûÃ»ÓÐÏó£¬Ôò¿¼ÂÇÓëËüÏà½»µÄ´Î¶Ô½ÇÏßÉÏÓÐ¶àÉÙ»á±»¹¥»÷µ½£¬½«ËùÓÐµÄx-yÅÅÐò£¬¿É¹¥»÷µÄ·¶Î§Ò»¶¨ÊÇÒ»¸öÁ¬ÐøÇø¼ä£¬×¢ÒâÆæÅ¼ÐÔ¼´¿É¡£
+
+Problem C-Cool Numbers
+¸ºÔð£ºÂÞÆëÒ¢
+Çé¿ö£º1AC
+ÌâÒâ£º
+	ÕÒ³ö´ÓÐ¡µ½´óµÚk¸öºÃÊý£¬Õý·´¶Á¶¼ÊÇ»¥²»ÏàÍ¬µÄÖÊÊý
+Ë¼Â·£º
+	ÕÒ³öËùÓÐÖÊÊý£¬±©Á¦ÑéÖ¤
+
 Problem D - Diagram
 ¸ºÔð£ºÍõÅô
 Çé¿ö£ºAC
@@ -84,6 +100,16 @@ Problem J¡ª¡ªJoining Powers
 	×ÜÊý=sigma(f[M][i]*Num(i))
 	×¢ÒâÐèÒªÊÂÏÈÍÚµôÊýÁÐÖÐµÄ1£¬×îºó²¹ÉÏÈ¥£¨1^xµÄx¿ÉÒÔÈ¡ÈÎÒâ´ó£¬²»Âú×ãÇ°ÌáÌõ¼þ£©
 	¸´ÔÓ¶ÈO(Q*(log(1e17)*M*log(56)+M*56))
+
+Problem K£­Keyboard Map
+¸ºÔð£ºÂÞÆëÒ¢
+Çé¿ö£º2AC
+ÌâÒâ£º
+	¸ø¶¨n¸ö×Ö·ûÒÔ¼°Ã¿¸ö×Ö·û³öÏÖµÄ×ÖÊý£¬½«Õân¸ö×Ö·û·Ö³Ém¿é£¬Ã¿¿é(a1,a2,ÿ,as)µÄ´ú¼ÛÎªa1+a2*2+a3*3+...+as*s£¬Çó³ö×îÉÙ´ú¼Û
+Ìâ½â£º
+	¿¼ÂÇf[i][j]ÎªÇ°i¸ö×Ö·û·Ö³Éj¿éµÄ×îÐ¡´ú¼Û
+	f[i][j] = min(f[k][j-1] + cost[k+1][i])
+	ÏÔÈ»¾ö²ß¾ßÓÐµ¥µ÷ÐÔ£¬ÓÃ¾ö²ßµ¥µ÷ÐÔÓÅ»¯DP¼´¿É
 
 Problem M¡ª¡ªMerging
 ¸ºÔð£º¹ùÓê
