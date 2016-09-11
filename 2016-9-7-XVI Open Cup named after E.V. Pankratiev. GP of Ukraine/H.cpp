@@ -1,108 +1,103 @@
-//19:33
-
 #include <bits/stdc++.h>
-#define eps (1e-8)
 using namespace std;
 
-typedef vector<int> VI;
+#define LL long long
 
-double p[31],f[31][31];
-double dp[810][31];
-int s[31],d[31][31];
-int n,top;
+typedef vector <int > VI;
+
+const double eps=1e-7;
+int N,tot;
 double ans;
+map <VI , int > Hash;
+int aa[30];
+double a[30][30];
+double dp[1010][30];
+int S[30][30];
+double P[30];
 
-map<VI,int> mp;
-
-VI get_(const VI &u, int a, int b) {
-	VI v(u.begin(), u.begin() + a);
-	for (int i = a + 1; i < b; i++) v.push_back(u[i]);
-	for (int i = b + 1; i < (int) u.size(); i++) v.push_back(u[i]);
-	v.push_back(u[a] + u[b]);
-	sort(v.begin(), v.end());
-	return v;
+int sign(double x){
+	if (x>eps)return 1;
+	if (x<-eps)return -1;
+	return 0;
 }
 
-void gauss(VI U) {
-	int u = mp[U];
-	memset(f,0,sizeof(f));
-	double js = 0;
-	for (int i = 0; i < (int) U.size(); i++)
-		js += (double) U[i] * (U[i] - 1) / 2.0;
-	js /= (double) (n * (n - 1) / 2);
-
-	memset(f,0,sizeof(f));
-   	for (int i = 1; i <= n; i++) {
-		f[i][i] = 1;
-		for (int j_ = 1; j_ <= s[i]; j_++) {
-			int j = d[i][j_];
-			f[i][j] -= js / (double) s[i] * p[i];
-			f[i][n + 1] += js / (double) s[i] * p[i];
-			f[i][j] -= (1.0 - p[i]) / (double) s[i];
-			f[i][n + 1] += (1.0 - p[i]) / (double) s[i];
-		}
-		f[i][n + 1] += dp[u][i];
-	}
-
-	for (int i = 1; i <= n; i++) {
-		int j = i;
-		for (; j <= n && fabs(f[j][i]) < eps; j++);
-		if (j > n) continue;
-		for (int k = 1; k <= n + 1; k++) swap(f[i][k], f[j][k]);
-		for (j = 1; j <= n; j++) {
-			if (i == j) continue;
-			if (fabs(f[j][i]) < eps) continue;
-			double co = f[j][i] / f[i][i];
-			for (int k = 1; k <= n + 1; k++)
-				f[j][k] -= f[i][k] * co;
-		}
-	}
-
-	for (int i = 1; i <= n; i++) dp[u][i] = f[i][n + 1] / f[i][i];
-
-	return;
+VI get_link(VI s,int x,int y){
+	VI t;
+	t.clear();
+	for (int i=0;i<x;i++)
+		t.push_back(s[i]);
+	for (int i=x+1;i<y;i++)
+		t.push_back(s[i]);
+	for (int i=y+1;i<s.size();i++)
+		t.push_back(s[i]);
+	t.push_back(s[x]+s[y]);
+	sort(t.begin(),t.end());
+	return t;
 }
 
-void solve(VI U) {	
-	if (mp[U]) return;	
-	mp[U] = ++top;
-	int u = top;
-	if (U[0] == n) return;
-	int cnt = n * (n - 1) / 2;
-	int size = U.size();
-	for (int i = 0; i < size; i++)
-		for (int j = i + 1; j < size; j++) {
-			VI V = get_(U, i, j);
-			solve(V);
-			int v = mp[V];
-			for (int a = 1; a <= n; a++) {
-				for (int b_ = 1; b_ <= s[a]; b_++) {
-					int b = d[a][b_];
-					dp[u][a] += (dp[v][b] + 1.0) * p[a] / (double) (s[a]) * (double) U[i] * (double) U[j] / (double) cnt;
-				}
+void gauss(){
+	int j=1;
+	for (int i=1;i<=N;i++){
+		int k=j;
+		while (k<=N&&!sign(a[k][i]))k++;
+		if (k>N)continue;
+		for (int t=0;t<=N;t++)swap(a[k][t],a[j][t]);
+		for (k=1;k<=N;k++)
+			if (k!=j&&sign(a[k][i])){
+				double t1=a[j][i],t2=a[k][i];
+				for (int t=0;t<=N;t++)
+					a[k][t]=a[k][t]-a[j][t]*t2/t1;
 			}
-		}
+		j++;
+	}
+}
 
-	gauss(U);
+void work(VI s){
+	aa[0]=s.size();
+	for (int i=0;i<s.size();i++)
+		aa[i+1]=s[i];
+	int t=Hash[s];
+	if (t)return;
+	t=Hash[s]=++tot;
+	if (s.size()==1){
+		for (int i=1;i<=N;i++)dp[t][i]=0;
+		return;
+	}
+	int tot=N*(N-1)/2;
+	double P_trans=0;
+	for (int i=0;i<s.size();i++)
+		for (int j=i+1;j<s.size();j++)
+				P_trans+=s[i]*s[j];
+	P_trans/=tot;
+	for (int x=1;x<=N;x++)
+		for (int i=0;i<s.size();i++)
+			for (int j=i+1;j<s.size();j++){
+				work(get_link(s,i,j));
+				int tt=Hash[get_link(s,i,j)];
+				for (int k=1;k<=S[x][0];k++)
+					dp[t][x]+=dp[tt][S[x][k]]*P[x]*s[i]*s[j]/(tot*S[x][0]);
+			}
+	memset(a,0,sizeof(a));
+	for (int x=1;x<=N;x++){
+		a[x][x]+=-1;
+		for (int y=1;y<=S[x][0];y++)
+			a[x][S[x][y]]+=(1-P[x]*P_trans)/S[x][0];
+		a[x][0]+=dp[t][x]+1;
+	}
+	gauss();
+	for (int x=1;x<=N;x++)
+		dp[t][x]=-a[x][0]/a[x][x];
 }
 
 int main() {
-	//freopen("H.in","r",stdin);
-	//freopen("H.out","w",stdout);
-	scanf("%d",&n);
-	for (int i = 1; i <= n; i++) scanf("%lf",&p[i]);
-	for (int i = 1; i <= n; i++) {
-		scanf("%d",&s[i]);
-		for (int j = 1; j <= s[i]; j++) {
-			scanf("%d",&d[i][j]);
-		}
+	scanf("%d",&N);
+	for (int i=1;i<=N;i++)scanf("%lf",&P[i]);
+	for (int i=1;i<=N;i++){
+		scanf("%d",&S[i][0]);
+		for (int j=1;j<=S[i][0];j++)
+			scanf("%d",&S[i][j]);
 	}
-
-	solve(VI(n, 1));
-
-	ans = dp[1][1];
-	
+	work(VI(N,1));
+	ans=dp[1][1];
 	printf("%.10lf\n",ans);
-	
-	return 0;
 }

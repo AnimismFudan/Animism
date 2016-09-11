@@ -1,4 +1,4 @@
-Problem A－Associated Vertices
+Problem A - Associated Vertices
 负责：郭雨 王鹏
 情况：2AC
 题意：
@@ -17,7 +17,7 @@ Problem A－Associated Vertices
 	需要存下所有点对是否关联
 	复杂度O(N*M+N^2)
 
-Problem B-Bishops
+Problem B - Bishops
 负责：罗齐尧
 情况：2AC
 题意：
@@ -25,7 +25,7 @@ Problem B-Bishops
 题解：
 	对于一个位置在(a,b)的象，它可以攻击到的位置(x,y)满足x+y=a+b或x-y=a-b。考虑每一条主对角线x+y=2..n+n，若这个对角线上有象，则这条线上所有的点都可以被攻击到；如果没有象，则考虑与它相交的次对角线上有多少会被攻击到，将所有的x-y排序，可攻击的范围一定是一个连续区间，注意奇偶性即可。
 
-Problem C-Cool Numbers
+Problem C - Cool Numbers
 负责：罗齐尧
 情况：1AC
 题意：
@@ -41,7 +41,7 @@ Problem D - Diagram
 题解：
 	水题，套个map就好。
 	
-Problem E－Effective Hiring
+Problem E - Effective Hiring
 负责：All
 情况：AC
 题意：
@@ -57,7 +57,7 @@ Problem E－Effective Hiring
 	由于N*K<=1e5 K<=300（左右）
 	因此复杂度为O(N*K^2)，可过
 
-Problem F——First And Last
+Problem F - First And Last
 负责：郭雨
 情况：AC
 题意：
@@ -77,7 +77,24 @@ Problem G - Game of Solitaire
 题解：
 	结论是ans = gcd(n, k);
 
-Problem J——Joining Powers
+Problem H - Hero’s Quest
+负责：郭雨
+情况：赛后AC
+题意：
+	有n个点的图, 一开始每个点都不联通. 一开始你被随机传送到点1, 要进行下面两步操作
+	1.使用魔法, 在点的成功率是: 随机选个点对修建一条边
+	2.如果图不连通, 那么从点集中选出一个点, 传送到这个点, 重复上述过程. 如果联通, 那么结束这个过程.
+	传送需要1单位时间, 其他时间不考虑, 给出pi和Si, 问使图联通的期望时间.
+	数据规模: 1≤n≤20,0<pi≤1
+题解：
+	dp[s][x]表示当前状态为s，所在点为x的期望。s为vector<int>
+	s的变化形成了一个拓扑图，容易dp
+	某些连边情况不会使s变化，因此需要列出线性方程组，gauss求解
+	由于s只需要存储每个连通块的点个数，因此个数较少
+	搜索（由题解）可知20个点的s状态个数仅有627个，因此可以暴力dp
+	复杂度O(627*N*N*N)
+	
+Problem J - Joining Powers
 负责：郭雨
 题意：
 	存在数列S(x):1^x , 2^x , 3^x ……
@@ -101,7 +118,7 @@ Problem J——Joining Powers
 	注意需要事先挖掉数列中的1，最后补上去（1^x的x可以取任意大，不满足前提条件）
 	复杂度O(Q*(log(1e17)*M*log(56)+M*56))
 
-Problem K－Keyboard Map
+Problem K - Keyboard Map
 负责：罗齐尧
 情况：2AC
 题意：
@@ -111,7 +128,7 @@ Problem K－Keyboard Map
 	f[i][j] = min(f[k][j-1] + cost[k+1][i])
 	显然决策具有单调性，用决策单调性优化DP即可
 
-Problem L－Light Sources
+Problem L - Light Sources
 负责：郭雨
 情况：赛后AC
 题意：
@@ -126,7 +143,7 @@ Problem L－Light Sources
 	之后就是(2^6)*40*40*40的spfa
 	
 
-Problem M——Merging
+Problem M - Merging
 负责：郭雨
 题意：
 	给定K个多项式数列S(X)=sigma(Xi*n^i)  0<=i<=7
@@ -136,3 +153,5 @@ Problem M——Merging
 题解：
 	由于不需要去重，K和N的范围都很小，直接用堆维护最小值即可
 	复杂度O(NlogK*8)
+
+Zimpha题解传送门：http://zimpha.github.io/2015/09/14/xvi-opencup-gp1/
