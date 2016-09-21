@@ -1,4 +1,20 @@
+#include <bits/stdc++.h>
+using namespace std;
 
+const int oo = 2e9;
+int Test, N, M, pt, ans, S, T;
+int dist[1010], q[1010];
+int st[1010], ne[20010], go[20010], c[20010];
+
+class line{
+    public:
+    int x, y, c;
+}L[10010];
+
+void Add(int x, int y, int cc){
+    ne[++pt] = st[x];
+    st[x] = pt;
+    go[pt] = y;
     c[pt] = cc;
 }
 
