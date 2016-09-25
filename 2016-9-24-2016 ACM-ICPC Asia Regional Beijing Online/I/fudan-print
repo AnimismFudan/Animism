@@ -1,0 +1,162 @@
+#!/usr/bin/env python
+
+# Copyright 2011, Yingtao Tian
+
+"""
+    This file is part of SHSite11Print.
+
+    SHSite11Print is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    SHSite11Print is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with SHSite11Print.  If not, see <http://www.gnu.org/licenses/>.
+"""
+
+import os, sys, string, shutil, socket
+
+def printHelp():
+	print "Usage: print [/path/to/file]"
+	print "Or just type print<Enter> for details"
+
+def printNotice():
+	print "="*46
+	print "Thank you in advance, wish you success."
+
+def readFromStdin():
+	print "="*46
+	print "You can type type code here, ending by Ctrl-D"
+	print "(EOF), or redirect standard input to be from "
+	print "your source file by print < /path/to/file "
+	print "To abort, press Ctrl-C directly."
+	print "="*46
+	try:
+		return sys.stdin.read();
+	except KeyboardInterrupt:
+		print
+		print "bye bye"
+		sys.exit()
+	
+def readFromFile(filePath):
+	with open(filePath) as f:
+		return f.read();
+
+
+def socketWrite(s,msg):
+	s.send( str( len( msg ) ) )
+
+	buf = s.recv(1024)
+
+	if buf != str(len(msg)) :
+		raise RuntimeError("socket corrupted")
+	
+	totalSent = 0
+	while totalSent < len(msg) :
+		sent = s.send(msg[totalSent:])
+		if sent == 0:
+			raise RuntimeError("socket broken")
+		totalSent += sent
+
+
+def upload( HOST, PORT, sendList ):
+	content = sendList
+
+	s = None;
+
+	for res in socket.getaddrinfo( HOST, PORT, socket.AF_UNSPEC, socket.SOCK_STREAM):
+		af, socktype, proto, canonname, sa = res
+
+		try:
+			s = socket.socket( af, socktype, proto )
+		except socket.error, content:
+			s = None
+			continue
+		
+		try:
+			s.connect(sa)
+		except socket.error, content:
+			s.close()
+			s = None
+			continue
+		break
+
+	if s is None:
+		raise error.FatalError( "Cannot open socket" );
+
+	socketWrite( s, content );
+
+	s.close()
+
+class limit:
+	def __init__(self):
+		self.MINSIZE = 1
+		self.MAXSIZE = 32000
+		self.MAXLINE = 1000
+
+class info:
+	def __init__(self):
+		self.PORT = 50009
+
+def allowedContent( content ):
+	if len( content ) < limit().MINSIZE:
+		print "Requirement 1 violated: Too short"
+		return False;
+	if len( content ) > limit().MAXSIZE:
+		print "Requirement 2 violated: Too long"
+		return False;
+	if len( content.split('\n') ) > limit().MAXLINE :
+		print "Requirement 3 violated: Too many lines"
+		return False;
+
+	for char in content:
+		if not char in string.printable:
+			print "Requirement 4 violated: Unprintable character found"
+			return False;
+	return True;
+
+
+if __name__ == '__main__':
+	printNotice()
+
+	server = '10.131.235.9'
+
+	content = ""
+	if len( sys.argv ) == 1:
+		content = readFromStdin();
+	elif len( sys.argv ) == 2:
+		try:
+			content = readFromFile( sys.argv[1] );
+		except IOError:
+			print "="*46
+			print "Oops! Unable to read from file, please make sure "
+			print "such file exits and you have access to it."
+			print "Fall back to stdin mode."
+			content = readFromStdin();
+	else:
+		printHelp();
+		exit()
+	
+	if not allowedContent( content ):
+		print "="*46
+		print "Printing not allowed."
+		print "Please check carefully and submit again."
+		exit()
+	
+
+	print "="*46
+	print "Uploading........."
+	try:
+		upload( server , info().PORT , ( content ) )
+		print "Done."
+		print "="*46
+	except Exception as e:
+		print "="*46
+		print "Oops! Cannot upload!"
+		print "Please ask technician for support"
+		print "Tech Info: ", e;

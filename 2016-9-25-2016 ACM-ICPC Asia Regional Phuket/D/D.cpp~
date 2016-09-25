@@ -1,0 +1,33 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    freopen("D.in","r",stdin);
+    freopen("D.out","w",stdout);
+    for (scanf("%d"&T); T; T--) {
+	scanf("%d %d\n",&n,&m);
+	for (int i = 1; i <= n; i++)
+	    scanf("%s",s[i] + 1);
+    
+    for (int i = 1; i <= n; i++)
+	for (int j = 1; j <= m; j++)
+	    mark[i][j][0] = ++top, mark[i][j][1] = ++top;
+    
+    for (int i = 1; i <= n; i++) {
+	for (int j = 1; j < m; j++) {
+	    if (s[i][j] == '\\' && s[i][j + 1] == '/') {
+		com(mark[i][j][1], mark[i][j + 1][0]);
+	    }
+	    else if (s[i][j] == '/' && s[i][j + 1] == '\\') {
+		com(mark[i][j][1], mark[i][j + 1][0]);
+	    }
+	    else if 
+	}	
+    }
+
+    for (int i = 1; i < n; i++)
+	for (int j = 1; j <= m; j++) {
+	    if (s[i][j] == '/' && s[i + 1][j] == '')
+	}
+    }
+    return 0;
+}
