@@ -7,8 +7,8 @@ int n,m;
 char s[22][22];
 
 int main() {
-	freopen("L.in","r",stdin);
-	freopen("L.out","w",stdout);
+	//freopen("L.in","r",stdin);
+	//freopen("L.out","w",stdout);
 	scanf("%d %d",&n,&m);
 	for (int i = 1; i <= n; i++)
 		scanf("%s",s[i] + 1);

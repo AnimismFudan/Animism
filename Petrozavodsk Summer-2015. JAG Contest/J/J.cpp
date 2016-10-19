@@ -8,7 +8,7 @@ class poi{
 	int x, y;
 }P[100010];
 
-bool cmpx(const rec &A, const rec &B){
+bool cmpx(const poi &A, const poi &B){
 	if (A.x != B.x)return A.x < B.x;
 	return A.y < B.y;
 }

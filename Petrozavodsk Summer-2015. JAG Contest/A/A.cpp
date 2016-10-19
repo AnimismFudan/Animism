@@ -123,8 +123,8 @@ void solve(int base) {
 }
 
 int main() {
-	freopen("A.in","r",stdin);
-	freopen("A.out","w",stdout);
+	//freopen("A.in","r",stdin);
+	//freopen("A.out","w",stdout);
 	scanf("%d\n",&n);
 	scanf("%s",s + 1);
 	for (int i = 1; i <= n; i++)

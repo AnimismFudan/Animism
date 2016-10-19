@@ -54,7 +54,7 @@ int main()
 	else if (x<0 && y<0) a = pi + atan(1.0 * y/x);
 	else if (x<0 && y>0) a = .5*pi + atan(-1.0 * x/y);
 	else if (x>0 && y<0) a = 1.5*pi + atan(-1.0 * x/y);
-	printf("%lf\n",a);
+	//printf("%lf\n",a);
 	d = sqrt(1.0 * x*x + 1.0 * y*y);
 	double le = eps, ri = w * d, mi;
 	while (le+eps < ri)

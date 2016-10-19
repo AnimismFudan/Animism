@@ -184,7 +184,7 @@ int main(){
 	}else{
 		for (int i = 1; i <= N; i++){
 			if (b1){
-				fm = (a1 * b2 - b1 * a2 ) * b3;
+				fm = (b1 * a2 - a1 * b2) * b3;
 				p.x = (b1 * b2 * c3 * 2 - b1 * c2 * b3 - c1 * b2 * b3 + b1 * 2 * (b2 * a3 - a2 * b3) * C[i].x) / fm;
 				p.y = (-c1 - a1 * p.x) / b1;
 			}else{
