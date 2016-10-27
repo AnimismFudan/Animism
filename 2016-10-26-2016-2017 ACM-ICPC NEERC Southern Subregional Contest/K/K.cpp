@@ -4,7 +4,8 @@ using namespace std;
 int Test, N, M, S, T, pt, l, r;
 int q[4000010], c[4000010];
 int st[400010], ne[2000010], go[2000010];
-int fa[400010], faw[400010], dep[400010], vis[400010];
+int fa[400010], faw[400010], dep[400010], vis[400010], lnv[400010];
+vector <int > auv[400010];
 
 class line{
 	public:
@@ -19,23 +20,29 @@ void Add(int x, int y){
 
 void dfs(int x){
 	vis[x] = 1;
-	for (int i = st[x]; i; i = ne[i])
-		if (go[i] != fa[x]){
-			if (!vis[go[i]]){
-				dep[go[i]] = dep[x] + 1;
-				fa[go[i]] = x;
-				faw[go[i]] = i;
-				dfs(go[i]);
-			}
-		}
+	for (int i = st[x]; i; i = ne[i]){
+		int y = go[i];
+		if (y == fa[x])continue;
+		if (!vis[y]){
+			lnv[x] = y;
+			dep[y] = dep[x] + 1;
+			fa[y] = x;
+			faw[y] = i;
+			dfs(y);
+		}else if (dep[go[i]] < dep[x])
+			auv[lnv[go[i]]].push_back(i ^ 1);
+	}
 }
 
 bool work(){
 	for (int i = 1; i <= N; i++){
 		st[i] = 0;
 		fa[i] = 0;
+		faw[i] = 0;
 		dep[i] = 0;
 		vis[i] = 0;
+		lnv[i] = 0;
+		auv[i].clear();
 	}
 	pt = 1;
 	for (int i = 1; i <= M; i++){
@@ -54,16 +61,15 @@ bool work(){
 		int cc = c[l];
 		int t = faw[x] >> 1;
 		int y = fa[x];
-		if (vis[x])
-			continue;
+		if (vis[x])continue;
 		vis[x] = 1;
 		if (t && L[t].dir == -1){
 			L[t].dir = (faw[x] & 1) ^ cc;
 			q[++r] = y;
 			c[r] = cc;
 		}
-		for (int i = st[y]; i; i = ne[i])
-			if (fa[go[i]] != y && fa[y] != go[i] && L[i >> 1].dir == -1){
+		for (auto i : auv[x])
+			if (L[i >> 1].dir == -1){
 				L[i >> 1].dir = (i & 1) ^ cc;
 				q[++r] = go[i];
 				c[r] = cc ^ 1;

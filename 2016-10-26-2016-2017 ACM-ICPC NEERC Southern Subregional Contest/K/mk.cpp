@@ -9,7 +9,7 @@ int main(){
 	int Test = 1;
 	printf("%d\n", Test);
 	while (Test--){
-		int N = rand () % 6 + 2;
+		int N = rand () % 50 + 2;
 //		int M = rand () % (N * (N - 1) / 2) + 1;
 		int M = N - 1 + rand () % 5 + 1;
 		M = min (M, N * (N - 1) / 2);
