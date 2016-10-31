@@ -27,7 +27,7 @@ bool judge(int a,int b,int c) {
     intl y1 = (f[b] + S(dep[b])) - (f[a] + S(dep[a]));
     intl x2 = dep[c] - dep[b];
     intl y2 = (f[c] + S(dep[c])) - (f[b] + S(dep[b]));
-    return (x1 * y2 - x2 * y1 >= 0LL);
+    return (x1 * y2 - x2 * y1 <= 0LL);
 }
 
 intl trans(int j, int i) {
@@ -37,23 +37,23 @@ intl trans(int j, int i) {
 void dfs(int u) {
     int js,sj;
     for (int i = fst[u]; i; i = edge[i].nex) {
-    int v = edge[i].v;
-    fa[v] = u; 
-    mark[v] = mark[u];
-    dep[v] = dep[u] + edge[i].len;
-    while(mark[v] != u && bet(son[mark[v]], mark[v], v))
-        mark[v] = son[mark[v]];
-    f[v] = trans(mark[v], v);
-    g[v] = u;
-    sj = mark[v];
-    while (g[v] != 1 && judge(g[g[v]],g[v],v)) {
-        g[v] = g[g[v]];
-        if (dep[g[v]] < dep[mark[v]]) mark[v] = g[v];
-    }
-    js = son[g[v]]; son[g[v]] = v;
-    dfs(v);
-    son[g[v]] = js;
-    mark[v] = sj;
+		int v = edge[i].v;
+		fa[v] = u; 
+		mark[v] = mark[u];
+		dep[v] = dep[u] + edge[i].len;
+		while(mark[v] != u && bet(son[mark[v]], mark[v], v))
+			mark[v] = son[mark[v]];
+		f[v] = trans(mark[v], v);
+		g[v] = u;
+		sj = mark[v];
+		while (g[v] != 1 && judge(g[g[v]],g[v],v)) {
+			g[v] = g[g[v]];
+			//if (dep[g[v]] < dep[mark[v]]) mark[v] = g[v];
+		}
+		js = son[g[v]]; son[g[v]] = v;
+		dfs(v);
+		son[g[v]] = js;
+		mark[v] = sj;
     }
 }
 
@@ -64,20 +64,22 @@ void init() {
 }
 
 int main() {
+	freopen("I.in","r",stdin);
+	freopen("I.out","w",stdout);
     for (scanf("%d",&T); T; T--) {
-    scanf("%d %I64d",&n,&P);
-    init();
-    for (int i = 1; i < n; i++) {
-        int a,b; intl c;
-        scanf("%d %d %I64d",&a,&b,&c);
-        if (a > b) swap(a, b);
-        make_edge(a, b, c);
-    }
-    dfs(1);
-    ans = 0LL;
-    for (int i = 1; i <= n; i++)
-        ans = max(ans, f[i]);
-    printf("%I64d\n",ans - P);
+		scanf("%d %lld",&n,&P);
+		init();
+		for (int i = 1; i < n; i++) {
+			int a,b; intl c;
+			scanf("%d %d %lld",&a,&b,&c);
+			if (a > b) swap(a, b);
+			make_edge(a, b, c);
+		}
+		dfs(1);
+		ans = 0LL;
+		for (int i = 1; i <= n; i++)
+			ans = max(ans, f[i]);
+		printf("%lld\n",ans - P);
     }
     return 0;
 }
