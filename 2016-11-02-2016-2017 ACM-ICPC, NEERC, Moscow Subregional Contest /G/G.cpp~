@@ -1,0 +1,8 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+	freopen("G.in","r",stdin);
+	freopen("G.out","w",stdout);
+	scanf("%d",&n); 
+	return 0;
+}
