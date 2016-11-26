@@ -96,31 +96,8 @@ void Insert(int &root, int x, int step){
 }
 
 double dist(poi a, poi b){
-//	return abs(a.x - b.x) + abs(a.y - b.y);
 	return sqrt(double(a.x - b.x) * (a.x - b.x) + double(a.y - b.y) * (a.y - b.y));
 }
-
-/*int Min_dist(poi p, kdleaf t){
-	if (p.x < t.sx){
-		if (p.y < t.sy)
-			return abs(p.x - t.sx) + abs(p.y - t.sy);
-		else if (p.y > t.ty)
-			return abs(p.x - t.sx) + abs(p.y - t.ty);
-		else return abs(p.x - t.sx);
-	} else if (t.sx <= p.x && p.x <= t.tx){
-		if (p.y < t.sy)
-			return abs(p.y - t.sy);
-		else if (p.y > t.ty)
-			return abs(p.y - t.ty);
-		else return 0;
-	} else {
-		if (p.y < t.sy)
-			return abs(p.x - t.tx) + abs(p.y - t.sy);
-		else if (p.y > t.ty)
-			return abs(p.x - t.tx) + abs(p.y - t.ty);
-		else return abs(p.x - t.tx);
-	}
-}*/
 
 double Min_dist(poi p, kdleaf t){
 	if (p.x < t.sx){
