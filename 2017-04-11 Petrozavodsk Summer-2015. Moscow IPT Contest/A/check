@@ -1,0 +1,8 @@
+while
+	echo done
+	./mk
+	time ./A
+	./A_
+	diff A.out A_.out
+do :; done
+
