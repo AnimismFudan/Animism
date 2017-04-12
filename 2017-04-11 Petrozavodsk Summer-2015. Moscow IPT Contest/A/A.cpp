@@ -21,7 +21,7 @@ class segleaf{
 	public:
 	int lson, rson;
 } seg[maxn];
-int root[200010];
+int root[2000010];
 
 int ptx, pty;
 int stx[maxn], nex[maxn], gox[maxn];
@@ -114,8 +114,8 @@ void ask1(int x, int l, int r, int ll, int rr){
 }
 
 int main() {
-	freopen("A.in","r",stdin);
-	freopen("A.out","w",stdout);
+//	freopen("A.in","r",stdin);
+//	freopen("A.out","w",stdout);
 	scanf("%d", &N);
 	for (int i = 1; i <= N; i++){
 		scanf("%d%d", &P[i].x, &P[i].y);
@@ -131,9 +131,9 @@ int main() {
 		P[i].y = lower_bound(ly + 1, ly + leny + 1, P[i].y) - ly;
 	}
 	sort(P + 1, P + N + 1, cmpxy);
-	len = 1;
-	for (int i = 2; i <= N; i++)
-		if (P[i].x != P[len].x || P[i].y != P[len].y)
+	len = 0;
+	for (int i = 1; i <= N; i++)
+		if (!len || P[i].x != P[len].x || P[i].y != P[len].y)
 			P[++len] = P[i];
 	N = len;
 	len = 0;
@@ -178,8 +178,19 @@ int main() {
 			xt = xl;
 			ask1(1, 1, lenx, xl, xr);
 		}
-		printf("%d %d\n", ansx, ansy);
-		fflush(stdout);
+		if (ansx < 0 || ansy < 0){
+			printf("0 ");
+			fflush(stdout);
+			printf("0\n");
+			fflush(stdout);
+		}
+		else{
+//			printf("%d %d\n", ansx, ansy);
+			printf("%d ", ansx);
+			fflush(stdout);
+			printf("%d\n", ansy);
+			fflush(stdout);
+		}
 	}
 	return 0;
 }
